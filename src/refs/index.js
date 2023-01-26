@@ -1,7 +1,8 @@
 const refs = {
   form: document.querySelector('.search-form'),
   gallery: document.querySelector('.gallery'),
+  loader: document.querySelector('.loader'),
 };
-const { form, gallery } = refs;
+const { form, gallery, loader } = refs;
 
-export { form, gallery };
+export { form, gallery, loader };

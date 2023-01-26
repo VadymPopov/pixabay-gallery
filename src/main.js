@@ -2,7 +2,7 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import SimpleLightbox from 'simplelightbox';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { getImages } from './api';
-import { form, gallery } from './refs';
+import { form, gallery, loader } from './refs';
 import { createListMarkup, addMarkup } from './markup';
 
 let page = 1;
@@ -18,6 +18,7 @@ let lightbox = new SimpleLightbox('.gallery a', {
 form.addEventListener('submit', onFormSubmit);
 
 async function onFormSubmit(evt) {
+  loader.classList.remove('loader-hidden');
   evt.preventDefault();
   cleanUpMarkup(gallery);
   page = 1;
@@ -26,6 +27,7 @@ async function onFormSubmit(evt) {
   localStorage.setItem('input', userInput);
 
   if (!userInput) {
+    loader.classList.add('loader-hidden');
     Notify.info("Search line can't be empty, try again");
     return;
   }
@@ -34,6 +36,7 @@ async function onFormSubmit(evt) {
 
   try {
     searchRequest(data);
+    loader.classList.add('loader-hidden');
   } catch (error) {
     onFetchError(error);
   }
